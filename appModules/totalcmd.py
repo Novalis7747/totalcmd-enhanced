@@ -7,6 +7,7 @@
 import appModuleHandler
 from NVDAObjects.IAccessible import IAccessible
 import speech
+import braille
 import controlTypes
 import ui
 import scriptHandler
@@ -21,6 +22,7 @@ Features:
 - added speaking of top and bottom for beginning and end of the listview
 - added hotkey Alt-1 to get the current file window announced together with the activated Tab name. If no Tabs are used it announces the current directory instead
 - speaks active Tab when control-tab and control-shift-tab is used
+- sends special output at the beginning to braille: 1. and 2. to identify if a file on the left or right side, 1x and 2x if it is selected.
 """
 
 currIndex = 0
@@ -53,10 +55,12 @@ class TCList(IAccessible):
 			while obj and obj.previous and obj.windowClassName!="Window":
 				obj=obj.previous
 			try:
-				if obj2.parent.parent.previous.firstChild.role  == 14:
+				if obj2.parent.parent.previous.firstChild.role  == controlTypes.ROLE_LIST:
+					# Translators: the word left for the left window in your language (only the word left).
 					ui.message(_("left"))
 					windowName = "left"
 				else:
+					# Translators: the word right for the right window in your language (only the word right).
 					ui.message(_("right"))
 					windowName = "right"
 			except AttributeError:
@@ -65,17 +69,36 @@ class TCList(IAccessible):
 
 	def reportFocus(self):
 		if self.name:
+			bs = "-"
 			currIndex = self.IAccessibleChildID
 			allIndex = self.parent.childCount
-			if currIndex == 1: ui.message(_("Top"))
-			if allIndex == currIndex: ui.message(_("Bottom"))
+			if currIndex == 1:
+				# Translators: the word  Top for reaching the top of the list in your language (only the word Top).
+				ui.message(_("Top"))
+			if allIndex == currIndex:
+				# Translators: the word  Bottom for reaching the bottom of the list in your language (only the word Bottom).
+				ui.message(_("Bottom"))
+			# Translators: the phrase "{number} of {total}" for an file index like 2 of 32 in your language.
 			indexString=_("{number} of {total}").format( number = currIndex, total = allIndex)
 			speakList=[]
 			if controlTypes.STATE_SELECTED in self.states:
 				speakList.append(controlTypes.stateLabels[controlTypes.STATE_SELECTED])
+				bs = "x"
 			speakList.append(self.name.split("\\")[-1])
 			speakList.append(indexString)
 			speech.speakMessage(" ".join(speakList))
+			if windowName == "left":
+				if bs == "x":
+					bs = "1x"
+				else:
+					bs = "1."
+			if windowName == "right":
+				if bs == "x":
+					bs = "2x"
+				else:
+					bs = "2."
+			brailleString = ("%s %s %s" % (bs, self.name, indexString))
+			braille.handler.message(brailleString)
 		else:
 			super(TCList,self).reportFocus()
 
