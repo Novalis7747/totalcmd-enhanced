@@ -13,14 +13,14 @@ import ui
 import scriptHandler
 
 """
-Total Commander enhanced Version 0.91 
+Total Commander enhanced Version 0.6.1 
 Author: Ralf Kefferpuetz and others, June 2018
 Features:
 - added support for   64bit version of Total Commander
 - speaks left/ right for the 2 file windows when moving between them, now also for FTP connections
 - added a file index to be spoken in the listView
 - added speaking of top and bottom for beginning and end of the listview
-- added hotkey Alt-1 to get the current file window announced together with the activated Tab name. If no Tabs are used it announces the current directory instead
+- added hotkey Alt-1 to get the current file window announced together with the activated Tab name. If no Tabs are used it announces the current directory instead. If it can't get either the tab-name nor the active directory it tells you left or right only.
 - speaks active Tab when control-tab and control-shift-tab is used
 - sends special output at the beginning to braille: 1. and 2. to identify if a file on the left or right side, 1x and 2x if it is selected.
 """
@@ -110,6 +110,7 @@ class TCList(IAccessible):
 				if controlTypes.STATE_SELECTED in child.states:
 					infoString = (" %s %s" % (_(windowName), child.name))
 					ui.message(infoString)
+					return
 		except AttributeError:
 			pass
 
@@ -120,6 +121,7 @@ class TCList(IAccessible):
 				if controlTypes.STATE_SELECTED in child.states:
 					infoString = (" %s %s" % (_(windowName), child.name))
 					ui.message(infoString)
+					return
 		except AttributeError:
 			pass
 		if not children:
@@ -134,6 +136,7 @@ class TCList(IAccessible):
 							if windowName == "left":
 								infoString = (" %s %s" % (_(windowName), str1))
 								ui.message(infoString)
+								return
 			except AttributeError:
 				pass
 		
@@ -147,8 +150,11 @@ class TCList(IAccessible):
 						if str1.find(str2) != -1:
 							infoString = (" %s %s" % (_(windowName), str1))
 							ui.message(infoString)
+							return
 			except AttributeError:
 				pass
+		infoString = (" %s " % (_(windowName)))
+		ui.message(infoString)
 	# Translators: Documentation for Alt-1 script.
 	script_readActiveTab.__doc__=_("speaks left or right together with the active Tab or working directory.")
 
