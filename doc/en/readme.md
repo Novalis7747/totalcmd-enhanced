@@ -13,6 +13,6 @@
 Files can be found at:
 https://github.com/Novalis7747/totalcmd-enhanced
 Latest release direct download:
-https://github.com/Novalis7747/totalcmd-enhanced/raw/master/totalcmd-0.6.1.nvda-addon
+https://github.com/Novalis7747/totalcmd-enhanced/raw/master/totalcmd-0.6.2.nvda-addon
 
 * Important note: contact me for any suggestions and comments under novalis7747@live.com

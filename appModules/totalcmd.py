@@ -1,6 +1,6 @@
 #appModules/totalcmd.py
 #A part of NonVisual Desktop Access (NVDA)
-#Copyright (C) 2006-2012 NVDA Contributors
+#Copyright (C) 2006-2019 NVDA Contributors
 #This file is covered by the GNU General Public License.
 #See the file COPYING for more details.
 
@@ -13,7 +13,7 @@ import ui
 import scriptHandler
 
 """
-Total Commander enhanced Version 0.6.1 
+Total Commander enhanced Version 0.6.2 
 Author: Ralf Kefferpuetz and others, June 2018
 Features:
 - added support for   64bit version of Total Commander
