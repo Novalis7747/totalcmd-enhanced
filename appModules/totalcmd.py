@@ -13,7 +13,7 @@ import ui
 import scriptHandler
 
 """
-Total Commander enhanced Version 0.6.2 
+Total Commander enhanced Version 0.6.3 
 Author: Ralf Kefferpuetz and others, June 2018
 Features:
 - added support for   64bit version of Total Commander

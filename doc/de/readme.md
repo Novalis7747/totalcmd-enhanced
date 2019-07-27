@@ -13,6 +13,6 @@
 Alle Dateien können hier gefunden werden:
 https://github.com/Novalis7747/totalcmd-enhanced
 Letztes release direkt download:
-https://github.com/Novalis7747/totalcmd-enhanced/raw/master/totalcmd-0.6.2.nvda-addon
+https://github.com/Novalis7747/totalcmd-enhanced/raw/master/totalcmd-0.6.3.nvda-addon
 
 * Wichtige Anmerkung: Für Fragen oder Anregungen, sowie einer speziellen Braille-Ausgabe bitte kontaktiert mich unter Novalis7747@live.com
